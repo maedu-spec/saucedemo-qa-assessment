@@ -1,0 +1,55 @@
+{
+  "users": {
+    "standard": {
+      "username": "standard_user",
+      "password": "secret_sauce",
+      "description": "Standard user with full access"
+    },
+    "problem": {
+      "username": "problem_user",
+      "password": "secret_sauce",
+      "description": "Problem user — some UI elements are broken"
+    },
+    "locked": {
+      "username": "locked_out_user",
+      "password": "secret_sauce",
+      "description": "Locked out user — should be blocked from login"
+    },
+    "invalid": {
+      "username": "invalid_user",
+      "password": "wrong_password",
+      "description": "Completely invalid credentials"
+    }
+  },
+  "checkout": {
+    "valid": {
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "postalCode": "10001"
+    },
+    "missingFirstName": {
+      "firstName": "",
+      "lastName": "Doe",
+      "postalCode": "10001"
+    },
+    "missingLastName": {
+      "firstName": "Jane",
+      "lastName": "",
+      "postalCode": "10001"
+    },
+    "missingPostalCode": {
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "postalCode": ""
+    }
+  },
+  "errorMessages": {
+    "invalidLogin": "Epic sadface: Username and password do not match any user in this service",
+    "lockedUser": "Epic sadface: Sorry, this user has been locked out.",
+    "missingUsername": "Epic sadface: Username is required",
+    "missingPassword": "Epic sadface: Password is required",
+    "missingFirstName": "Error: First Name is required",
+    "missingLastName": "Error: Last Name is required",
+    "missingPostalCode": "Error: Postal Code is required"
+  }
+}
