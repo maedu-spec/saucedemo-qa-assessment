@@ -16,7 +16,10 @@ Tools Used
 
 
 Features Tested
-### Exploratory Testing
+### Exploratory Testing 
+SauceDemo test report 
+https://docs.google.com/document/d/1BOtzPMl8-IyJtJGAy1KyXpGWmeWFVreB/edit?usp=sharing&ouid=106383422187428550828&rtpof=true&sd=true
+
 - Login
 - Add to cart
 - Remove from cart
