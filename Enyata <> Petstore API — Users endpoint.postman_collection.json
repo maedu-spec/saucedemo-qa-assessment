@@ -1,0 +1,738 @@
+{
+  "info": {
+    "_postman_id": "65be0637-da5d-420a-a740-6d69b984cec3",
+    "name": "Enyata <> Petstore API — Users Endpoint Tests",
+    "description": "QA Technical Assessment — API Tests for the /user endpoints of the Swagger Petstore API.\nBase URL: https://petstore.swagger.io/v2\n\nCovers: Create User, Create with Array, Create with List, Login, Get User, Update User, Delete User, Logout.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "27285392"
+  },
+  "item": [
+    {
+      "name": "1. Create User",
+      "item": [
+        {
+          "name": "POST /user — Create a new user (valid payload)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response has correct content-type', function () {",
+                  "    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+                  "});",
+                  "",
+                  "pm.test('Response body contains code 200', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.have.property('code');",
+                  "    pm.expect(json.code).to.eql(200);",
+                  "});",
+                  "",
+                  "pm.test('Response body contains type ok', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.type).to.eql('unknown');",
+                  "});",
+                  "",
+                  "pm.test('Response time is under 3000ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 10001,\n  \"username\": \"{{testUsername}}\",\n  \"firstName\": \"QA\",\n  \"lastName\": \"Tester\",\n  \"email\": \"qa.tester@example.com\",\n  \"password\": \"{{testPassword}}\",\n  \"phone\": \"08012345678\",\n  \"userStatus\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/user",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "user"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST /user/createWithArray — Create users via array",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response body is valid JSON', function () {",
+                  "    pm.response.to.be.json;",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.have.property('code');",
+                  "});",
+                  "",
+                  "pm.test('Response time is under 3000ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"id\": 10002,\n    \"username\": \"qa_array_user_01\",\n    \"firstName\": \"Array\",\n    \"lastName\": \"UserOne\",\n    \"email\": \"array.user1@example.com\",\n    \"password\": \"Pass123!\",\n    \"phone\": \"08011111111\",\n    \"userStatus\": 1\n  },\n  {\n    \"id\": 10003,\n    \"username\": \"qa_array_user_02\",\n    \"firstName\": \"Array\",\n    \"lastName\": \"UserTwo\",\n    \"email\": \"array.user2@example.com\",\n    \"password\": \"Pass456!\",\n    \"phone\": \"08022222222\",\n    \"userStatus\": 1\n  }\n]"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/user/createWithArray",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "user",
+                "createWithArray"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST /user/createWithList — Create users via list",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response body is valid JSON', function () {",
+                  "    pm.response.to.be.json;",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.have.property('code');",
+                  "    pm.expect(json.code).to.eql(200);",
+                  "});",
+                  "",
+                  "pm.test('Response time is under 3000ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"id\": 10004,\n    \"username\": \"qa_list_user_01\",\n    \"firstName\": \"List\",\n    \"lastName\": \"UserOne\",\n    \"email\": \"list.user1@example.com\",\n    \"password\": \"Pass789!\",\n    \"phone\": \"08033333333\",\n    \"userStatus\": 1\n  }\n]"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/user/createWithList",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "user",
+                "createWithList"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2. Login & Logout",
+      "item": [
+        {
+          "name": "GET /user/login — Login with valid credentials",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response contains session token in body', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.message).to.include('logged in user session:');",
+                  "    // Extract token and save to variable for later use",
+                  "    var token = json.message.split(':')[1].trim();",
+                  "    pm.collectionVariables.set('authToken', token);",
+                  "    console.log('Auth token saved:', token);",
+                  "});",
+                  "",
+                  "pm.test('Response has X-Rate-Limit-Limit header', function () {",
+                  "    pm.expect(pm.response.headers.has('X-Rate-Limit-Limit')).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test('Response has X-Expires-After header', function () {",
+                  "    pm.expect(pm.response.headers.has('X-Expires-After')).to.be.true;",
+                  "});",
+                  "",
+                  "pm.test('Content-Type is application/json', function () {",
+                  "    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+                  "});",
+                  "",
+                  "pm.test('Response time is under 3000ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/user/login?username={{testUsername}}&password={{testPassword}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "user",
+                "login"
+              ],
+              "query": [
+                {
+                  "key": "username",
+                  "value": "{{testUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{testPassword}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /user/login — Login with missing username (negative)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 400 for missing username', function () {",
+                  "    // API returns 400 when required params are absent",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test('Response time is under 3000ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/user/login?password={{testPassword}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "user",
+                "login"
+              ],
+              "query": [
+                {
+                  "key": "password",
+                  "value": "{{testPassword}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /user/logout — Logout current session",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response body confirms logout', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.have.property('code');",
+                  "    pm.expect(json.code).to.eql(200);",
+                  "    pm.expect(json.message).to.eql('ok');",
+                  "});",
+                  "",
+                  "pm.test('Response time is under 3000ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/user/logout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "user",
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3. Get User",
+      "item": [
+        {
+          "name": "GET /user/{username} — Get existing user by username",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response is valid JSON with all required fields', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.have.property('id');",
+                  "    pm.expect(json).to.have.property('username');",
+                  "    pm.expect(json).to.have.property('firstName');",
+                  "    pm.expect(json).to.have.property('lastName');",
+                  "    pm.expect(json).to.have.property('email');",
+                  "    pm.expect(json).to.have.property('phone');",
+                  "    pm.expect(json).to.have.property('userStatus');",
+                  "});",
+                  "",
+                  "pm.test('Username in response matches request', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.username).to.eql(pm.collectionVariables.get('testUsername'));",
+                  "});",
+                  "",
+                  "pm.test('id is a number', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.id).to.be.a('number');",
+                  "});",
+                  "",
+                  "pm.test('Response time is under 3000ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/user/{{testUsername}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "user",
+                "{{testUsername}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /user/{username} — Get non-existent user (negative)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 404 for unknown user', function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});",
+                  "",
+                  "pm.test('Error message is user not found', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.message).to.eql('User not found');",
+                  "});",
+                  "",
+                  "pm.test('Response time is under 3000ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/user/this_user_does_not_exist_xyz999",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "user",
+                "this_user_does_not_exist_xyz999"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "4. Update User",
+      "item": [
+        {
+          "name": "PUT /user/{username} — Update existing user",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response body confirms update with code 200', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.code).to.eql(200);",
+                  "});",
+                  "",
+                  "pm.test('Response time is under 3000ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 10001,\n  \"username\": \"{{testUsername}}\",\n  \"firstName\": \"QA Updated\",\n  \"lastName\": \"Tester Updated\",\n  \"email\": \"qa.updated@example.com\",\n  \"password\": \"{{testPassword}}\",\n  \"phone\": \"08099999999\",\n  \"userStatus\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/user/{{testUsername}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "user",
+                "{{testUsername}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /user/{username} — Verify update was applied",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('First name was updated correctly', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.firstName).to.eql('QA Updated');",
+                  "});",
+                  "",
+                  "pm.test('Last name was updated correctly', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.lastName).to.eql('Tester Updated');",
+                  "});",
+                  "",
+                  "pm.test('Email was updated correctly', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.email).to.eql('qa.updated@example.com');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/user/{{testUsername}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "user",
+                "{{testUsername}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT /user/{username} — Update non-existent user (negative)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 404 for non-existent user', function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});",
+                  "",
+                  "pm.test('Response time is under 3000ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 99999,\n  \"username\": \"ghost_user_xyz\",\n  \"firstName\": \"Ghost\",\n  \"lastName\": \"User\",\n  \"email\": \"ghost@example.com\",\n  \"password\": \"pass\",\n  \"phone\": \"000\",\n  \"userStatus\": 0\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/user/ghost_user_xyz",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "user",
+                "ghost_user_xyz"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "5. Delete User",
+      "item": [
+        {
+          "name": "DELETE /user/{username} — Delete existing user",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response body confirms deletion', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.code).to.eql(200);",
+                  "    pm.expect(json.message).to.eql(pm.collectionVariables.get('testUsername'));",
+                  "});",
+                  "",
+                  "pm.test('Response time is under 3000ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/user/{{testUsername}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "user",
+                "{{testUsername}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /user/{username} — Verify user no longer exists after deletion",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 404 after deletion', function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});",
+                  "",
+                  "pm.test('Response confirms user not found', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.message).to.eql('User not found');",
+                  "});",
+                  "",
+                  "pm.test('Response time is under 3000ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/user/{{testUsername}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "user",
+                "{{testUsername}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE /user/{username} — Delete non-existent user (negative)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 404 for non-existent user', function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});",
+                  "",
+                  "pm.test('Response time is under 3000ms', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/user/user_that_was_never_created_xyz",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "user",
+                "user_that_was_never_created_xyz"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://petstore.swagger.io/v2"
+    },
+    {
+      "key": "testUsername",
+      "value": "qa_testuser_001"
+    },
+    {
+      "key": "testPassword",
+      "value": "TestPass123!"
+    },
+    {
+      "key": "authToken",
+      "value": ""
+    }
+  ]
+}
